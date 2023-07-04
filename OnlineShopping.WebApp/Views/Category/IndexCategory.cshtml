@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnlineShopping.WebApp.Models.CategoryDto>
+@{
+	ViewData["Title"] = "IndexCategory";
+
+
+
+	Pager pager = new Pager();
+	int pageNo = 0;
+	if (ViewBag.SearchPager != null)
+	{
+		pager = ViewBag.SearchPager;
+		pageNo = pager.CurrentPage;
+	}
+}
+<div align:center>
+	<partial name="_pager" model="@pager" />
+
+
+</div>
+
+
+<br />
+<div class="container p-4 border">
+	<div class="row pb-2">
+		<div class="col">
+			<h1 class="text-primary">Category List</h1>
+		</div>
+		<div class="col text-end pt-1">
+			<a asp-controller="Category" asp-action="CreateCategory" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Category</a>
+		</div>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Category Name
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var item in Model){
+				<tr>
+					<td>@item.CategoryName</td>
+					<td>
+						<a asp-controller="Category" asp-action="UpdateCategory" asp-route-categoryId="@item.CategoryId" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+						<a asp-controller="Category" asp-action="DeleteCategory" asp-route-categoryId="@item.CategoryId"  class="btn btn-danger"><i  class="bi bi-trash-fill"></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>

@@ -1,0 +1,88 @@
+﻿@model OnlineShopping.WebApp.Models.VM.ProductDeleteVM
+<form asp-action="DeleteProduct">
+<br />
+<div class="container border p-3">
+<h4 class="text-primary">Delete Product</h4>
+<hr />
+
+ 
+<input hidden asp-for="Product.ProductId" />
+        <div class="row">
+<div asp-validation-summary="All" class="text-danger"></div>
+
+ 
+
+            <div class="col-2">
+<label asp-for="Product.CategoryId" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<select asp-for="Product.CategoryId" disabled class="form-select" asp-items="@Model.CategoryList">
+<option disabled selected>--Select Category--</option>
+</select>
+<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+</div>
+<div class="col-2">
+<label asp-for="Product.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<input asp-for="Product.ProductName" disabled class="form-control" />
+<span asp-validation-for="Product.ProductName" class="text-danger"></span>
+</div>
+
+ 
+
+
+<div class="col-2">
+<label asp-for="Product.Price" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<input asp-for="Product.Price" disabled class="form-control" />
+<span asp-validation-for="Product.Price" class="text-danger"></span>
+</div>
+
+ 
+
+            <div class="col-2">
+<label asp-for="Product.AvailableQuantity" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<input asp-for="Product.AvailableQuantity" disabled class="form-control" />
+<span asp-validation-for="Product.AvailableQuantity" class="text-danger"></span>
+</div>
+
+ 
+
+            
+
+<div class="col-2">
+<label asp-for="Product.ProductDescription" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<textarea asp-for="Product.ProductDescription" readonly class="form-control" rows="5"></textarea>
+<span asp-validation-for="Product.ProductDescription" class="text-danger"></span>
+</div>
+<div class="col-2">
+<label asp-for="Product.ImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+</div>
+<div class="col-10 pb-3">
+<input asp-for="Product.ImageUrl" disabled class="form-control" />
+<span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+</div>
+ 
+
+            <div class="col-5 offset-2">
+<a asp-action="IndexProduct" asp-controller="Product" class="btn-primary btn form-control ">Back to List</a>
+</div>
+<div class="col-5">
+<input type="submit" value="Delete" class="btn btn-danger form-control" />
+</div>
+</div>
+</div>
+</form>
+
+ 
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

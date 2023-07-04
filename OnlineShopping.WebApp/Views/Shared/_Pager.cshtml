@@ -1,0 +1,117 @@
+﻿@model Pager
+
+
+
+
+<div class="container btn-group" style="background-color:black; border-radius: 25px; height:45px;">
+
+
+
+
+    <div class="col-4 p-0 justify-content-end mt-1">
+        <form asp-controller="@Model.Controller" asp-action="@Model.Action">
+            <span class="btn-group">
+                <input class="form-control" type="text" name="SearchText"
+                       value="@Model.SearchText" placeholder="Search Key">
+
+
+
+                <input name="pageSize" type="hidden" value="@Model.PageSize" />
+
+
+
+                <input class="p-1 ml-2 btn btn-sm btn-info" type="submit" value="Search" />
+            </span>
+        </form>
+    </div>
+
+
+
+
+    <div class="col-2 btn-group justify-content-end">
+        <span class="col-7 mt-2 p-0">
+            Rows Per Page
+        </span>
+        <span class="col-5 p-1">
+
+
+
+            <select class="form-control" id="pageSelector" asp-items="@ViewBag.PageSizes"
+                    onchange="ChangePageSize(this,'@Model.SearchText');">
+            </select>
+
+
+
+        </span>
+    </div>
+
+
+
+
+    <div class="col-6 btn-group container mt-1 justify-content-end">
+        @if (Model.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-end">
+
+
+
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pg="1"
+                           asp-route-SearchText="@Model.SearchText" asp-route-pageSize="@Model.PageSize">First</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                           asp-route-pg="@(Model.CurrentPage - 1)"
+                           asp-route-SearchText="@Model.SearchText" asp-route-pageSize="@Model.PageSize">Previous</a>
+                    </li>
+                }
+                @for (var pge = Model.StartPage; pge <= Model.EndPage; pge++)
+                {
+                    <li class="page-item @(pge == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pg="@pge"
+                           asp-route-SearchText="@Model.SearchText" asp-route-pageSize="@Model.PageSize"> @pge </a>
+                    </li>
+
+
+
+                }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                           asp-route-SearchText="@Model.SearchText" asp-route-pg="@(Model.CurrentPage + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                           asp-route-SearchText="@Model.SearchText" asp-route-pg="@(Model.TotalPages)" asp-route-pageSize="@Model.PageSize">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div class="clearfix">
+    <p></p>
+</div>
+
+
+
+<script>
+    function ChangePageSize(obj, searchtext) {
+        window.location.href = "/@Model.Controller/@Model.Action" + "?pageSize=" + obj.value + "&SearchText=" + searchtext;
+    }
+</script>
+
+
